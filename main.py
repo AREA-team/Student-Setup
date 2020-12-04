@@ -48,6 +48,12 @@ class Setup(QMainWindow, Ui_MainWindow):
         shortcut.WorkingDirectory = working_dir
         shortcut.IconLocation = icon
         shortcut.save()
+        # run as admin flag
+        with open(path, "rb") as f2:
+            ba = bytearray(f2.read())
+        ba[0x15] |= 0x20
+        with open(path, "wb") as f3:
+            f3.write(ba)
         self.close()
 
     def change_path(self):
