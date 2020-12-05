@@ -33,7 +33,7 @@ class Setup(QMainWindow, Ui_MainWindow):
         self.installation.installed.connect(self.create_shortcut)
 
     def create_shortcut(self):
-        os.rename(self.path + '/AREA-Student-1.0-beta',
+        os.rename(self.path + '/AREA-Student-1.0',
                   self.path + '/AREA-Student')
         desktop = os.environ['USERPROFILE'] + '/Desktop'
         path = os.path.join(desktop, "AREA-Student.lnk")
@@ -73,9 +73,9 @@ class Installation(QThread):
         self.parent.state_name.setText('Идёт установка, пожалуйста, подождите...')
         self.parent.repaint()
         self.parent.path = self.parent.path_le.text()
-        if os.path.exists(self.parent.path + '/AREA-Student-1.0-beta'):
-            shutil.rmtree(self.parent.path + '/AREA-Student-1.0-beta')
-        response = requests.get('https://github.com/AREA-team/AREA-Student/archive/v1.0-beta.zip')
+        if os.path.exists(self.parent.path + '/AREA-Student-1.0'):
+            shutil.rmtree(self.parent.path + '/AREA-Student-1.0')
+        response = requests.get('https://github.com/AREA-team/AREA-Student/archive/v1.0.zip')
         file = tempfile.TemporaryFile()
         file.write(response.content)
         fzip = zipfile.ZipFile(file)
