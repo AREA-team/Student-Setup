@@ -33,8 +33,6 @@ class Setup(QMainWindow, Ui_MainWindow):
         self.installation.installed.connect(self.create_shortcut)
 
     def create_shortcut(self):
-        if os.path.exists(self.path + '/AREA-Student'):
-            shutil.rmtree(self.path + '/AREA-Student')
         os.rename(self.path + '/AREA-Student-1.0-beta',
                   self.path + '/AREA-Student')
         desktop = os.environ['USERPROFILE'] + '/Desktop'
@@ -70,6 +68,8 @@ class Installation(QThread):
         self.parent = parent
 
     def run(self):
+        if os.path.exists(self.parent.path + '/AREA-Student'):
+            shutil.rmtree(self.parent.path + '/AREA-Student')
         self.parent.state_name.setText('Идёт установка, пожалуйста, подождите...')
         self.parent.repaint()
         self.parent.path = self.parent.path_le.text()
