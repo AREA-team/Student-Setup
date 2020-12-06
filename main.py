@@ -7,6 +7,7 @@ import zipfile
 import requests
 import ctypes
 
+from PyQt5.QtGui import QIcon, QPixmap
 from PyQt5.QtWidgets import QApplication, QMainWindow, QFileDialog
 from PyQt5.QtCore import QThread, pyqtSignal
 from win32com.client import Dispatch
@@ -22,6 +23,8 @@ class Setup(QMainWindow, Ui_MainWindow):
     def __init__(self):
         super().__init__()
         self.setupUi(self)
+        self.setWindowIcon(QIcon(resource_path('logo.ico')))
+        self.logo_label.setPixmap(QPixmap(resource_path('logo.ico')))
         self.privacy_policy_btn.clicked.connect(open_privacy_policy)
         self.path = 'C:/Program Files'
         self.shell = None
@@ -44,7 +47,7 @@ class Setup(QMainWindow, Ui_MainWindow):
         path = os.path.join(desktop, "AREA-Student.lnk")
         target = self.path + '/AREA-Student/AREA-Student.exe'
         working_dir = self.path + '/AREA-Student'
-        icon = self.path + '/AREA-Student/System Files/Logo.ico'
+        icon = self.path + '/AREA-Student/System Files/logo.ico'
         self.shell = Dispatch('WScript.Shell')
         shortcut = self.shell.CreateShortCut(path)
         shortcut.Targetpath = target
@@ -52,11 +55,11 @@ class Setup(QMainWindow, Ui_MainWindow):
         shortcut.IconLocation = icon
         shortcut.save()
         # run as admin flag
-        # with open(path, "rb") as f2:
-        #     ba = bytearray(f2.read())
-        # ba[0x15] |= 0x20
-        # with open(path, "wb") as f3:
-        #     f3.write(ba)
+        with open(path, "rb") as f2:
+            ba = bytearray(f2.read())
+        ba[0x15] |= 0x20
+        with open(path, "wb") as f3:
+            f3.write(ba)
         self.close()
 
     def change_path(self):
@@ -87,6 +90,13 @@ class Installation(QThread):
         fzip.close()
         self.installed.emit()
         self.quit()
+
+
+def resource_path(relative):
+    if hasattr(sys, '_MEIPASS'):
+        return os.path.join(sys._MEIPASS, relative)
+    else:
+        return os.path.join(os.path.abspath("."), relative)
 
 
 def is_admin():
