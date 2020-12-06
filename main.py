@@ -25,12 +25,17 @@ class Setup(QMainWindow, Ui_MainWindow):
         self.privacy_policy_btn.clicked.connect(open_privacy_policy)
         self.path = 'C:/Program Files'
         self.shell = None
+        self.installation = Installation(self)
         self.path_le.setReadOnly(True)
         self.path_le.setText(self.path)
         self.change_path_btn.clicked.connect(self.change_path)
-        self.installation = Installation(self)
-        self.install_btn.clicked.connect(self.installation.start)
+        self.install_btn.clicked.connect(self.install)
         self.installation.installed.connect(self.create_shortcut)
+
+    def install(self):
+        self.state_name.setText('Идёт установка, пожалуйста, подождите...')
+        self.repaint()
+        self.installation.start()
 
     def create_shortcut(self):
         os.rename(self.path + '/AREA-Student-1.0',
@@ -47,11 +52,11 @@ class Setup(QMainWindow, Ui_MainWindow):
         shortcut.IconLocation = icon
         shortcut.save()
         # run as admin flag
-        with open(path, "rb") as f2:
-            ba = bytearray(f2.read())
-        ba[0x15] |= 0x20
-        with open(path, "wb") as f3:
-            f3.write(ba)
+        # with open(path, "rb") as f2:
+        #     ba = bytearray(f2.read())
+        # ba[0x15] |= 0x20
+        # with open(path, "wb") as f3:
+        #     f3.write(ba)
         self.close()
 
     def change_path(self):
@@ -70,8 +75,6 @@ class Installation(QThread):
     def run(self):
         if os.path.exists(self.parent.path + '/AREA-Student'):
             shutil.rmtree(self.parent.path + '/AREA-Student')
-        self.parent.state_name.setText('Идёт установка, пожалуйста, подождите...')
-        self.parent.repaint()
         self.parent.path = self.parent.path_le.text()
         if os.path.exists(self.parent.path + '/AREA-Student-1.0'):
             shutil.rmtree(self.parent.path + '/AREA-Student-1.0')
