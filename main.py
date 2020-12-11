@@ -55,11 +55,11 @@ class Setup(QMainWindow, Ui_MainWindow):
         shortcut.IconLocation = icon
         shortcut.save()
         # run as admin flag
-        with open(path, "rb") as f2:
-            ba = bytearray(f2.read())
-        ba[0x15] |= 0x20
-        with open(path, "wb") as f3:
-            f3.write(ba)
+        # with open(path, "rb") as f2:
+        #     ba = bytearray(f2.read())
+        # ba[0x15] |= 0x20
+        # with open(path, "wb") as f3:
+        #     f3.write(ba)
         self.close()
 
     def change_path(self):
@@ -96,7 +96,7 @@ def resource_path(relative):
     if hasattr(sys, '_MEIPASS'):
         return os.path.join(sys._MEIPASS, relative)
     else:
-        return os.path.join(os.path.abspath("."), relative)
+        return os.path.join(os.path.abspath(""), relative)
 
 
 def is_admin():

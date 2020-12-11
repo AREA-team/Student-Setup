@@ -7,7 +7,7 @@
     <x>0</x>
     <y>0</y>
     <width>692</width>
-    <height>424</height>
+    <height>426</height>
    </rect>
   </property>
   <property name="windowTitle">
@@ -111,14 +111,14 @@
     <item alignment="Qt::AlignHCenter">
      <widget class="QPushButton" name="privacy_policy_btn">
       <property name="sizePolicy">
-       <sizepolicy hsizetype="Preferred" vsizetype="Fixed">
+       <sizepolicy hsizetype="MinimumExpanding" vsizetype="Fixed">
         <horstretch>0</horstretch>
         <verstretch>0</verstretch>
        </sizepolicy>
       </property>
       <property name="minimumSize">
        <size>
-        <width>400</width>
+        <width>500</width>
         <height>40</height>
        </size>
       </property>

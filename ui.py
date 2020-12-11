@@ -14,7 +14,7 @@ from PyQt5 import QtCore, QtGui, QtWidgets
 class Ui_MainWindow(object):
     def setupUi(self, MainWindow):
         MainWindow.setObjectName("MainWindow")
-        MainWindow.resize(692, 424)
+        MainWindow.resize(692, 426)
         self.centralwidget = QtWidgets.QWidget(MainWindow)
         self.centralwidget.setObjectName("centralwidget")
         self.verticalLayout = QtWidgets.QVBoxLayout(self.centralwidget)
@@ -32,7 +32,7 @@ class Ui_MainWindow(object):
         self.logo_label.setSizePolicy(sizePolicy)
         self.logo_label.setMaximumSize(QtCore.QSize(100, 100))
         self.logo_label.setText("")
-        self.logo_label.setPixmap(QtGui.QPixmap("Logo.ico"))
+        self.logo_label.setPixmap(QtGui.QPixmap("logo.ico"))
         self.logo_label.setScaledContents(True)
         self.logo_label.setObjectName("logo_label")
         self.horizontalLayout_2.addWidget(self.logo_label)
@@ -65,12 +65,12 @@ class Ui_MainWindow(object):
         self.label_2.setObjectName("label_2")
         self.verticalLayout.addWidget(self.label_2, 0, QtCore.Qt.AlignHCenter)
         self.privacy_policy_btn = QtWidgets.QPushButton(self.centralwidget)
-        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.Preferred, QtWidgets.QSizePolicy.Fixed)
+        sizePolicy = QtWidgets.QSizePolicy(QtWidgets.QSizePolicy.MinimumExpanding, QtWidgets.QSizePolicy.Fixed)
         sizePolicy.setHorizontalStretch(0)
         sizePolicy.setVerticalStretch(0)
         sizePolicy.setHeightForWidth(self.privacy_policy_btn.sizePolicy().hasHeightForWidth())
         self.privacy_policy_btn.setSizePolicy(sizePolicy)
-        self.privacy_policy_btn.setMinimumSize(QtCore.QSize(400, 40))
+        self.privacy_policy_btn.setMinimumSize(QtCore.QSize(500, 40))
         self.privacy_policy_btn.setStyleSheet("QPushButton {\n"
 "background-color: rgb(71, 118, 93);\n"
 "color: rgb(254, 254, 254);\n"

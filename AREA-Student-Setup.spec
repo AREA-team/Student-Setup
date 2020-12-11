@@ -4,7 +4,7 @@ block_cipher = None
 
 
 a = Analysis(['main.py'],
-             pathex=['.'],
+             pathex=['C:\\Users\\Vasily\\PycharmProjects\\AREA-Project\\Student-Setup'],
              binaries=[],
              datas=[('logo.ico', '.')],
              hiddenimports=[],

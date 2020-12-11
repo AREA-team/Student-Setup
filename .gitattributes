@@ -1,0 +1,9 @@
+/.gitattributes export-ignore
+/AREA-Student-Setup.spec export-ignore
+/logo.ico export-ignore
+/main.py export-ignore
+/ui.py export-ignore
+/ui.ui export-ignore
+/versionfile.txt export-ignore
+/versionfile.yml export-ignore
+/.idea export-ignore
