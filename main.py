@@ -41,8 +41,6 @@ class Setup(QMainWindow, Ui_MainWindow):
         self.installation.start()
 
     def create_shortcut(self):
-        os.rename(self.path + '/AREA-Student-1.0',
-                  self.path + '/AREA-Student')
         desktop = os.environ['USERPROFILE'] + '/Desktop'
         path = os.path.join(desktop, "AREA-Student.lnk")
         target = self.path + '/AREA-Student/AREA-Student.exe'
@@ -78,16 +76,27 @@ class Installation(QThread):
     def run(self):
         if os.path.exists(self.parent.path + '/AREA-Student'):
             shutil.rmtree(self.parent.path + '/AREA-Student')
+        os.mkdir(self.parent.path + '/AREA-Student')
         self.parent.path = self.parent.path_le.text()
-        if os.path.exists(self.parent.path + '/AREA-Student-1.0'):
-            shutil.rmtree(self.parent.path + '/AREA-Student-1.0')
-        response = requests.get('https://github.com/AREA-team/AREA-Student/archive/v1.0.zip')
+        version = self.parent.system.currentText()
+        link = 'https://github.com/AREA-team/AREA-Student/releases/download/v1.0/' \
+               'AREA-Student.32bit.zip'
+        if version == 'Windows 32 bit':
+            link = 'https://github.com/AREA-team/AREA-Student/releases/download/v1.0/' \
+                   'AREA-Student.32bit.zip'
+        elif version == 'Windows 64 bit':
+            link = 'https://github.com/AREA-team/AREA-Student/releases/download/v1.0/' \
+                   'AREA-Student.zip'
+        response = requests.get(link)
         file = tempfile.TemporaryFile()
         file.write(response.content)
         fzip = zipfile.ZipFile(file)
-        fzip.extractall(self.parent.path)
+        fzip.extractall(self.parent.path + '/AREA-Student')
         file.close()
         fzip.close()
+        if version == 'Windows 32 bit':
+            os.chdir(self.parent.path + '/AREA-Student')
+            os.rename('AREA-Student 32bit.exe', 'AREA-Student.exe')
         self.installed.emit()
         self.quit()
 
